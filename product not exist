@@ -1,0 +1,39 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+driver = webdriver.Chrome()
+driver.maximize_window()
+driver.get("https://atid.store")
+title = driver.title
+print(driver.current_url)
+print("************* Step 1 **********************")
+print(" ")
+if title == "ATID Demo Store – ATID College Demo Store for Practicing QA Automation":
+    print("Step 1 -  Title Passed")
+    print(" ")
+    print("**************************************")
+else:
+    print("Step 1 -  Title Failed")
+    print(" ")
+    print("**************************************")
+
+driver.find_element(By.XPATH,'//*[@id="menu-item-671"]/a').click()
+if driver.current_url == "https://atid.store/product-category/man/":
+    print(driver.current_url,"step  2 - url Passed")
+    print(driver.current_url)
+    print("**************************************")
+else:
+    print(driver.current_url, "step  2 - url Failed")
+    print(driver.current_url)
+    print("**************************************")
+    
+driver.find_element (By.XPATH,"//*[@id="wc-block-search__input-1"]").send_keys("ager kassie")
+driver.find_element(By.XPATH,'//*[@id="block-7"]/div/form/div/button').click()
+
+productNotFound = driver.find_element(By.XPATH,'//*[@id="main"]/div/div/div').text
+if productNotFound == "No products were found matching your selection.":
+    print("Step 3 - Product Not Found Message Displayed  -  Passed")
+    print("**************************************")     
+else:    
+    print("Step 3 - Product Not Found Message Not Displayed  -  Failed")
+    print("**************************************")
